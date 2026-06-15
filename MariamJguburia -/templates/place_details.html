@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ place.title }} {% endblock %}
+
+{% block content %}
+<a href="/" class="nav-link" style="color: white;"> ⬅ back</a>
+<h1>Details about {{ place.title }}</h1>
+<hr>
+<div class="row">
+    <div class="col">
+        <div class="card" style="width: 18rem; background-color: #1e1e1e; color: white; border: none;">
+            <img src="/static/images/{{ place.image }}" class="card-img-top" alt="Place Poster Image">
+            <div class="card-body">
+                <h5 class="card-title">{{ place.title }}</h5>
+                <p class="card-text">{{ place.known_since }}</p>
+                <p class="card-text">{{ place.description }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col">
+    <h3>Place Reviews</h3>
+    {% for review in reviews %}
+    <p>{{ review.text }}</p>
+    {% endfor %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        {{ form.text(class="form-control", placeholder="Write a review...") }}
+        {{ form.submit(class="btn btn-primary mt-2") }}
+    </form>
+</div>
+<img src="/static/images/{{ place.flag }}"
+     style="position:fixed; bottom:20px; right:20px; width:80px; border-radius:4px;">
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} UNIQUE PLACES PAGE {% endblock %}
+
+{% block content %}
+<h1>This is Unique Places page</h1>
+<div class="row">
+    {% for place in places %}
+    <div class="col">
+        <div class="card" style="width: 18rem; background-color: #1e1e1e; color: white; border: none;">
+            <img src="/static/images/{{ place.image }}" class="card-img-top" alt="Places Poster Image">
+            <div class="card-body">
+                <h5 class="card-title">{{ place.title }}</h5>
+                <p class="card-text">{{ place.known_since }}</p>
+                <a href="/place/{{ place.id }}" class="btn" style="background-color: #1a5c1a; color: white;">See details</a>
+                {% if current_user.role == "Admin" %}
+                    <a href="/delete_place/{{ place.id }}" class="btn" style="background-color: #8b0000; color: white;">Delete Place</a>
+                    <a href="/update_place/{{ place.id }}" class="btn mt-2" style="background-color: #c2185b; color: white;">Update Place</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<div class="d-flex justify-content-center mt-4">
+    {{ pagination.links }}
+</div>
+{% endblock %}
